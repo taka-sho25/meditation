@@ -35,6 +35,7 @@ export default {
   &-left {
     display: flex;
     align-items: center;
+    margin-left: 20px;
   }
 
   &-right {
