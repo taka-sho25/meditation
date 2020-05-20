@@ -39,7 +39,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: [],
+  modules: ['nuxt-svg-loader'],
   /*
    ** Build configuration
    */
@@ -68,6 +68,11 @@ export default {
           }
         ]
       ]
+    },
+    loaders: {
+      scss: {
+        prependData: "@import '~assets/scss/index.scss';"
+      }
     },
     /*
      ** You can extend webpack config here

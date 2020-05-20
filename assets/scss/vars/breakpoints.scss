@@ -1,0 +1,10 @@
+$bp: (
+  xl: '(min-width: 1366px)',
+  lg: '(max-width: 1365px) and (min-width: 960px)',
+  md: '(max-width: 959px) and (min-width: 560px)',
+  sm: '(max-width: 559px)'
+);
+
+@function breakpoint($media) {
+  @return map-get($bp, $media);
+}
