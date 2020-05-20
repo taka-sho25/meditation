@@ -33,7 +33,8 @@ export default {
    */
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
+    '@nuxt/typescript-build'
   ],
   /*
    ** Nuxt.js modules
@@ -43,9 +44,43 @@ export default {
    ** Build configuration
    */
   build: {
+    babel: {
+      // envName: server, client, modern
+      presets() {
+        return [
+          [
+            '@nuxt/babel-preset-app',
+            {
+              targets: {
+                browsers: 'defaults'
+              },
+              useBuiltIns: 'usage',
+              corejs: { version: 3 }
+            }
+          ]
+        ]
+      },
+      plugins: [
+        [
+          '@babel/plugin-transform-runtime',
+          {
+            regenerator: true
+          }
+        ]
+      ]
+    },
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    extend(config, ctx) {
+      if (ctx.isDev && ctx.isClient) {
+        config.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|vue|ts)$/,
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/
+        })
+      }
+    }
   }
 }
