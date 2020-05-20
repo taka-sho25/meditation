@@ -1,16 +1,17 @@
 <template>
   <div class="sounds">
-    <SvgIcon name="beach" class="sounds-icon icon-beach" />
-    <SvgIcon name="rain" class="sounds-icon icon-rain" />
+    <BeachIcon class="sounds-icon icon-beach" />
+    <RainIcon class="sounds-icon icon-rain" />
   </div>
 </template>
 
 <script>
-import SvgIcon from '@/components/base/SvgIcon'
+import BeachIcon from '@/static/svg/beach.svg'
+import RainIcon from '@/static/svg/rain.svg'
 
 export default {
   name: 'SoundsPresenter',
-  components: { SvgIcon }
+  components: { BeachIcon, RainIcon }
 }
 </script>
 

@@ -1,23 +1,26 @@
 <template>
   <div class="controlBar">
     <div class="controlBar-left">
-      <SvgIcon name="play" class="controlBar-icon" />
-      <div>05:00</div>
+      <PlayIcon class="controlBar-icon" />
+      <Timer :time="'05:00'" />
     </div>
     <div class="controlBar-right">
-      <div>
-        5min
-      </div>
+      <Menu :menus="menus" />
     </div>
   </div>
 </template>
 
 <script>
-import SvgIcon from '@/components/base/SvgIcon'
+import PlayIcon from '@/static/svg/play.svg'
+import Menu from '@/components/base/Menu'
+import Timer from '@/components/base/Timer'
 
 export default {
   name: 'ControlBarPresenter',
-  components: { SvgIcon }
+  components: { Menu, Timer, PlayIcon },
+  computed: {
+    menus: () => ['1min', '5min', '10min']
+  }
 }
 </script>
 

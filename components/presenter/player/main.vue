@@ -20,16 +20,16 @@
     >
       <circle cx="226.5" cy="226.5" r="216.5" stroke="white" stroke-width="20" />
     </svg>
-    <SvgIcon name="play" class="main-icon" />
+    <PlayIcon class="main-icon" />
   </div>
 </template>
 
 <script>
-import SvgIcon from '@/components/base/SvgIcon'
+import PlayIcon from '@/static/svg/play.svg'
 
 export default {
   name: 'MainPresenter',
-  components: { SvgIcon }
+  components: { PlayIcon }
 }
 </script>
 
