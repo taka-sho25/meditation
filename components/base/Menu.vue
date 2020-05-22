@@ -1,6 +1,11 @@
 <template functional>
   <div class="menu">
-    <div v-for="(menu, i) in props.menus" :key="i" class="menu-item">
+    <div
+      v-for="(menu, i) in props.menus"
+      :key="i"
+      @click="props.changeDuration(menu)"
+      class="menu-item"
+    >
       {{ menu }}
     </div>
   </div>
@@ -13,6 +18,10 @@ export default {
     menus: {
       type: Array,
       default: () => []
+    },
+    changeDuration: {
+      type: Function,
+      default: () => {}
     }
   }
 }

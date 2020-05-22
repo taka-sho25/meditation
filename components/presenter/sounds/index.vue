@@ -1,7 +1,7 @@
 <template>
   <div class="sounds">
-    <BeachIcon class="sounds-icon icon-beach" />
-    <RainIcon class="sounds-icon icon-rain" />
+    <BeachIcon @click="changeSound('beach')" class="sounds-icon icon-beach" />
+    <RainIcon @click="changeSound('rain')" class="sounds-icon icon-rain" />
   </div>
 </template>
 
@@ -11,7 +11,13 @@ import RainIcon from '@/static/svg/rain.svg'
 
 export default {
   name: 'SoundsPresenter',
-  components: { BeachIcon, RainIcon }
+  components: { BeachIcon, RainIcon },
+  props: {
+    changeSound: {
+      type: Function,
+      default: () => {}
+    }
+  }
 }
 </script>
 
@@ -20,6 +26,7 @@ export default {
   &-icon {
     padding: 20px;
     border-radius: 50%;
+    cursor: pointer;
   }
 }
 .icon-beach {

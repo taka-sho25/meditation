@@ -48,6 +48,28 @@ export default {
     currentStatus: {
       type: String,
       default: ''
+    },
+    currentTime: {
+      type: String,
+      default: ''
+    },
+    duration: {
+      type: String,
+      default: ''
+    }
+  },
+  watch: {
+    currentTime() {
+      const outline = document.querySelector('.track-outline circle')
+      const outlineLength = outline.getTotalLength()
+      outline.style.strokeDashoffset = outlineLength
+      outline.style.strokeDasharray = outlineLength
+
+      const durationSec = Number(this.duration.split(':')[0]) * 60
+      const currentSec =
+        Number(this.currentTime.split(':')[0]) * 60 + Number(this.currentTime.split(':')[1])
+      const progress = outlineLength - (currentSec / durationSec) * outlineLength
+      outline.style.strokeDashoffset = progress
     }
   }
 }
@@ -73,9 +95,15 @@ export default {
 .track-outline,
 .moving-outline {
   width: 35%;
+  transform: translate(-50%, -50%) rotate(-90deg);
+
+  > circle {
+    transition: all 0.2s ease-in-out;
+  }
 }
 
 .timer-icon {
   width: 10%;
+  cursor: pointer;
 }
 </style>

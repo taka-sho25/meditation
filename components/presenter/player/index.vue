@@ -1,8 +1,21 @@
 <template>
   <div class="player-container">
     <Main :src="videoSrc" />
-    <Timer :play="play" :pause="pause" :currentStatus="currentStatus" />
-    <ControlBar />
+    <Timer
+      :play="play"
+      :pause="pause"
+      :current-status="currentStatus"
+      :duration="duration"
+      :current-time="currentTime"
+    />
+    <ControlBar
+      :play="play"
+      :pause="pause"
+      :current-status="currentStatus"
+      :duration="duration"
+      :current-time="currentTime"
+      :change-duration="changeDuration"
+    />
   </div>
 </template>
 
@@ -34,6 +47,18 @@ export default {
     currentStatus: {
       type: String,
       default: ''
+    },
+    currentTime: {
+      type: String,
+      default: ''
+    },
+    duration: {
+      type: String,
+      default: ''
+    },
+    changeDuration: {
+      type: Function,
+      default: () => {}
     }
   }
 }

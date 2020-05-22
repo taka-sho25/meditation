@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <PlayerContainer />
-    <SoundsContainer />
+    <PlayerContainer ref="player" />
+    <SoundsContainer ref="sounds" />
   </div>
 </template>
 

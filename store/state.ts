@@ -1,5 +1,6 @@
 const state = () => ({
-  currentStatus: 'ready'
+  currentStatus: 'ready',
+  soundName: 'beach'
 })
 
 export default state

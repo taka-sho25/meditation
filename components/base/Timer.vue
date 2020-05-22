@@ -1,5 +1,5 @@
 <template functional>
-  <div>{{ props.time }}</div>
+  <div>{{ props.currentTime }} / {{ props.time }}</div>
 </template>
 
 <script>
@@ -8,7 +8,11 @@ export default {
   props: {
     time: {
       type: String,
-      default: '00:00'
+      default: ''
+    },
+    currentTime: {
+      type: String,
+      default: ''
     }
   }
 }

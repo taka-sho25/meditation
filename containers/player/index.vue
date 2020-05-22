@@ -5,22 +5,23 @@
     :play="play"
     :pause="pause"
     :current-status="currentStatus"
+    :duration="duration"
+    :current-time="currentTime"
+    :change-duration="changeDuration"
   />
 </template>
 
 <script>
 import PlayerPresenter from '@/components/presenter/player'
-import beachSound from '@/assets/sounds/beach.mp3'
-import beachVideo from '@/assets/video/beach.mp4'
 
 export default {
   name: 'PlayerContainer',
   components: { PlayerPresenter },
   data() {
     return {
-      soundSrc: '',
-      videoSrc: '',
-      audio: null
+      duration: '05:00',
+      currentTime: '05:00',
+      timerId: null
     }
   },
   computed: {
@@ -29,27 +30,67 @@ export default {
     },
     currentStatus() {
       return this.$store.getters.currentStatus
+    },
+    soundName() {
+      return this.$store.getters.soundName
+    },
+    soundSrc() {
+      return require(`@/assets/sounds/${this.soundName}.mp3`).default
+    },
+    videoSrc() {
+      return require(`@/assets/video/${this.soundName}.mp4`).default
+    },
+    audio() {
+      return new Audio(this.soundSrc)
     }
   },
-  created() {
-    this.soundSrc = beachSound
-    this.videoSrc = beachVideo
-  },
-  mounted() {
-    this.audio = new Audio(beachSound)
-  },
   methods: {
+    reset() {
+      this.currentTime = this.duration
+    },
     play() {
-      console.log('play')
       this.$store.dispatch('setCurrentStatus', { status: 'play' })
       this.videoElement.play()
       this.audio.play()
+      this.timerId = setInterval(this.runTimer, 1000)
     },
     pause() {
-      console.log('pause')
       this.$store.dispatch('setCurrentStatus', { status: 'pause' })
       this.videoElement.pause()
       this.audio.pause()
+      clearInterval(this.timerId)
+    },
+    changeDuration(time) {
+      this.duration = time
+      this.reset()
+      if (this.currentStatus === 'play') {
+        this.pause()
+      }
+    },
+    runTimer() {
+      const min = this.currentTime.split(':')[0]
+      const sec = this.currentTime.split(':')[1]
+      this.currentTime = this.calculateTime(min, sec)
+      if (this.currentTime === '00:00') {
+        this.pause()
+        this.reset()
+      }
+    },
+    calculateTime(s, m) {
+      let sec = Number(s)
+      let min = Number(m)
+      if (min === 0) {
+        sec -= 1
+        min = 59
+      } else {
+        min -= 1
+      }
+      sec = this.zeroPadding(sec, 2)
+      min = this.zeroPadding(min, 2)
+      return `${sec}:${min}`
+    },
+    zeroPadding(num, length) {
+      return ('0000000000' + num).slice(-length)
     }
   }
 }
